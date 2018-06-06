@@ -7,6 +7,12 @@ public class Player : MonoBehaviour
     public float speed = 10;
     public float rotSpeed = 100;
     public float jumpSpeed = 30;
+    GameController gameController;
+
+    void Start()
+    {
+        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+    }
 
     void Update()
     {
@@ -19,7 +25,7 @@ public class Player : MonoBehaviour
         {
             movY = jumpSpeed * Time.deltaTime; // меняем значение на скорость прыжка
         }
-        transform.Translate(movX, movY, movZ); // перемещает объект
+        transform.Translate(0, movY, movZ); // перемещает объект
         transform.Rotate(0, rotY, 0); // поворачивает объект
 
     }
@@ -30,7 +36,19 @@ public class Player : MonoBehaviour
         {
             Debug.Log("Ты умер");
             GetComponent<Renderer>().material.color = Color.red; // получаем компонент рендерер и меняем цвет у материала
-            Time.timeScale = 0; // останавливаем вреям в игре
+            // Time.timeScale = 0; // останавливаем вреям в игре
+            gameController.Lose(); // Проигрываем
+            enabled = false;
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Finish")
+        {
+            // Time.timeScale = 0; // останавливаем время в игре
+            gameController.Win(); // Побеждаем
+            enabled = false;
         }
     }
 }
