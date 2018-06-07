@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "Enemy") // проверяем обьект столкновеня на соответсвие тэгу
         {
             Debug.Log("Ты умер");
-            GetComponent<Renderer>().material.color = Color.red; // получаем компонент рендерер и меняем цвет у материала
+            // GetComponent<Renderer>().material.color = Color.red; // получаем компонент рендерер и меняем цвет у материала
             // Time.timeScale = 0; // останавливаем вреям в игре
             gameController.Lose(); // Проигрываем
             enabled = false;
